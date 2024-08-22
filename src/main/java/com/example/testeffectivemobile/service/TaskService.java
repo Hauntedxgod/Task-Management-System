@@ -1,11 +1,9 @@
 package com.example.testeffectivemobile.service;
 
 
-import com.example.testeffectivemobile.dto.TaskDto;
 import com.example.testeffectivemobile.dto.TaskTakeDto;
 import com.example.testeffectivemobile.exceptions.TaskNotFoundExceptions;
 import com.example.testeffectivemobile.models.Task;
-import com.example.testeffectivemobile.models.User;
 import com.example.testeffectivemobile.repositories.TaskRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
