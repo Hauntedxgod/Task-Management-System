@@ -2,6 +2,7 @@ package com.example.testeffectivemobile.service;
 
 
 import com.example.testeffectivemobile.dto.TaskTakeDto;
+import com.example.testeffectivemobile.exceptions.TaskErrorException;
 import com.example.testeffectivemobile.exceptions.TaskNotFoundExceptions;
 import com.example.testeffectivemobile.models.Task;
 import com.example.testeffectivemobile.repositories.TaskRepository;
@@ -18,18 +19,16 @@ public class TaskService {
 
 
     private final TaskRepository taskRepository;
-
-    private final ModelMapper modelMapper;
     @Autowired
-    public TaskService(TaskRepository taskRepository, ModelMapper modelMapper) {
+    public TaskService(TaskRepository taskRepository) {
         this.taskRepository = taskRepository;
-        this.modelMapper = modelMapper;
     }
 
 
 
 
     public List<TaskTakeDto> getAllTask(){
+        ModelMapper modelMapper = new ModelMapper();
         List<TaskTakeDto> taskDtos = new ArrayList<>();
         List<Task> allTask = taskRepository.findAll();
         for (int i = 0; i < allTask.size() ; i++) {
@@ -64,7 +63,10 @@ public class TaskService {
     }
 
     public void deleteTask(Long id){
-        taskRepository.deleteById(id);
+            if (!taskRepository.existsById(id)) {
+                throw new TaskErrorException("Errors delete");
+            }
+            taskRepository.deleteById(id);
     }
 
 }

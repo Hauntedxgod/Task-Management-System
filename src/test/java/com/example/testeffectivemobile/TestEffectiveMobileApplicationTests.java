@@ -5,6 +5,8 @@ import com.example.testeffectivemobile.repositories.TaskRepository;
 import com.example.testeffectivemobile.service.TaskService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -15,24 +17,5 @@ class TestEffectiveMobileApplicationTests {
 
 
 
-    class TaskServiceTest{
-        private TaskRepository taskRepository = Mockito.mock(TaskRepository.class);
-//        private TaskService taskService = new TaskService(taskRepository);
-
-
-        @Test
-        public void testTaskCreate(){
-            Task task = new Task();
-            task.setTitle("New Project");
-
-            taskRepository.save(task);
-
-//            Task createTask = taskService.createTask(task , task.getAuthor());
-
-
-//            assertEquals("New project" , createTask.getTitle());
-            verify(taskRepository , times(1)).save(task);
-        }
-    }
 
 }
