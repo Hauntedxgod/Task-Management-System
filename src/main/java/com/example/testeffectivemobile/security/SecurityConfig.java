@@ -9,6 +9,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -18,6 +19,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.stereotype.Component;
 
 @Configuration
+@EnableWebSecurity
 public class SecurityConfig {
     private final PersonDetailsService personDetailsService;
 
@@ -40,7 +42,7 @@ public class SecurityConfig {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((s) ->
                         s.requestMatchers("/user/login", "/user/registration", "/error", "/v3/api-docs/**", "/v2/api-docs/**",
-                                        "/api-docs/**", "/api-docs", "",
+                                        "/api-docs/**", "/api-docs",
                                         "/configuration/ui",
                                         "/swagger-resources/**",
                                         "/configuration/security",

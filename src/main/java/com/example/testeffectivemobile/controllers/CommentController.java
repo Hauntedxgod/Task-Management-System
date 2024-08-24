@@ -1,9 +1,12 @@
 package com.example.testeffectivemobile.controllers;
 
+import com.example.testeffectivemobile.dto.CommentDto;
 import com.example.testeffectivemobile.models.Comment;
 import com.example.testeffectivemobile.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,20 +23,19 @@ public class CommentController {
         this.commentService = commentService;
     }
 
-    @PostMapping("/create")
+    @PostMapping("/newComment")
     public ResponseEntity<Comment> createComment(@RequestParam Long taskId , @RequestParam Long authorId
-            , @RequestParam String content){
+            , @RequestParam String content ){
+
+
         Comment comment = commentService.createComment(taskId , authorId , content);
 
-        return ResponseEntity.ok(comment);
+        return new ResponseEntity<>(comment , HttpStatus.OK);
     }
 
-    @GetMapping("/task/{id}")
-    public ResponseEntity<List<Comment>> getCommentsByTaskId(@PathVariable("id") Long taskId){
-
-        List<Comment> comments = commentService.getCommentsByTaskId(taskId);
-
-        return ResponseEntity.ok(comments);
+    @GetMapping("/all")
+    public ResponseEntity<List<CommentDto>> getCommentsByTaskId(){
+        return new ResponseEntity<>(commentService.getAllComments() , HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")

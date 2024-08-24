@@ -17,6 +17,7 @@ public class Comment {
     private Long id;
 
     @Column(columnDefinition = "text")
+
     private String content;
 
     @Column(name = "author_name")

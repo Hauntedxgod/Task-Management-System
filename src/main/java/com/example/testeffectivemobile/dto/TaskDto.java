@@ -20,5 +20,7 @@ public class TaskDto {
 
     private TaskStatus taskStatus;
 
+    private String executor;
+
     private TaskPriority priority;
 }

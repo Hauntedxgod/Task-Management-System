@@ -1,14 +1,19 @@
 package com.example.testeffectivemobile.service;
 
 
+import com.example.testeffectivemobile.dto.TaskDto;
 import com.example.testeffectivemobile.dto.TaskTakeDto;
 import com.example.testeffectivemobile.exceptions.TaskErrorException;
+import com.example.testeffectivemobile.exceptions.TaskNotCreatedException;
 import com.example.testeffectivemobile.exceptions.TaskNotFoundExceptions;
+import com.example.testeffectivemobile.exceptions.TaskNotUpdateException;
 import com.example.testeffectivemobile.models.Task;
 import com.example.testeffectivemobile.repositories.TaskRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,8 +30,6 @@ public class TaskService {
     }
 
 
-
-
     public List<TaskTakeDto> getAllTask(){
         ModelMapper modelMapper = new ModelMapper();
         List<TaskTakeDto> taskDtos = new ArrayList<>();
@@ -35,6 +38,10 @@ public class TaskService {
             taskDtos.add(modelMapper.map(allTask.get(i) , TaskTakeDto.class));
         }
         return taskDtos;
+    }
+
+    public void saveTask(Task task){
+        taskRepository.save(task);
     }
 
     public Task getTaskById(Long id){
@@ -52,21 +59,50 @@ public class TaskService {
         task.setExecutor(name);
         taskRepository.save(task);
     }
-    public void updateTask(Long id , TaskTakeDto taskTakeDto){
-        taskRepository.findById(id);
-        taskTakeDto.setTitle(taskTakeDto.getTitle());
-        taskTakeDto.setDescription(taskTakeDto.getDescription());
-        taskTakeDto.setTaskStatus(taskTakeDto.getTaskStatus());
-        taskTakeDto.setPriority(taskTakeDto.getPriority());
-
-
+    public void updateTask(Long id , TaskDto taskDto){
+        Task task = getTaskById(id);
+        task.setTitle(taskDto.getTitle());
+        task.setDescription(taskDto.getDescription());
+        task.setTaskStatus(taskDto.getTaskStatus());
+        task.setPriority(taskDto.getPriority());
+        task.setExecutor(taskDto.getExecutor());
+        saveTask(task);
     }
 
-    public void deleteTask(Long id){
-            if (!taskRepository.existsById(id)) {
-                throw new TaskErrorException("Errors delete");
-            }
-            taskRepository.deleteById(id);
+
+
+    public void taskNotCreated(BindingResult result) {
+        if (result.hasErrors()) {
+
+            StringBuilder builder = new StringBuilder();
+
+            List<FieldError> fieldErrors = result.getFieldErrors();
+            fieldErrors.forEach(error -> {
+                builder.append(error.getField());
+                builder.append("-");
+                builder.append(error.getDefaultMessage());
+            });
+            throw new TaskNotCreatedException(builder.toString());
+
+        }
     }
+
+    public void taskNotUpdate(BindingResult result) {
+        if (result.hasErrors()) {
+
+            StringBuilder builder = new StringBuilder();
+
+            List<FieldError> fieldErrors = result.getFieldErrors();
+            fieldErrors.forEach(error -> {
+                builder.append(error.getField());
+                builder.append("-");
+                builder.append(error.getDefaultMessage());
+            });
+            throw new TaskNotUpdateException(builder.toString());
+
+        }
+    }
+
+
 
 }

@@ -17,11 +17,11 @@ import java.io.IOException;
 
 @Component
 public class JWTFilter extends OncePerRequestFilter {
-    private final JWTUtils utils;
+    private final JWTUtil utils;
     private final PersonDetailsService service;
 
     @Autowired
-    public JWTFilter(JWTUtils utils, PersonDetailsService service) {
+    public JWTFilter(JWTUtil utils, PersonDetailsService service) {
         this.utils = utils;
         this.service = service;
     }

@@ -1,28 +1,29 @@
-version: '3.9'
+version: '2.27.0-desktop.2'
 
 services:
   app:
-    image: openjdk:17-jdk-slim
-    container_name: task-management-app
+    image: openjdk:17
+    container_name: test-effective-mobile
     ports:
-      - "8080:8080"
+      - "8081:8081"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/task-management
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/postgres
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: postgres
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
       SPRING_JPA_SHOW_SQL: "true"
+      JWT_SECRET: "SECRET"
     volumes:
       - C:\Users\kamal\IdeaProjects\test-effective-mobile\out\artifacts\test_effective_mobile_jar:/artifacts
     entrypoint: ["java", "-jar", "artifacts/test-effective-mobile.jar"]
 
   db:
     image: postgres:13
-    container_name: task-management-db
+    container_name: task_management_db
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_DB: task-management
+      POSTGRES_DB: postgres
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     volumes:
