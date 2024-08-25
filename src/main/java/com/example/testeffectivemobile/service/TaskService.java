@@ -3,7 +3,6 @@ package com.example.testeffectivemobile.service;
 
 import com.example.testeffectivemobile.dto.TaskDto;
 import com.example.testeffectivemobile.dto.TaskTakeDto;
-import com.example.testeffectivemobile.exceptions.TaskErrorException;
 import com.example.testeffectivemobile.exceptions.TaskNotCreatedException;
 import com.example.testeffectivemobile.exceptions.TaskNotFoundExceptions;
 import com.example.testeffectivemobile.exceptions.TaskNotUpdateException;

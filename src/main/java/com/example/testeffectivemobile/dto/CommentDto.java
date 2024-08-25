@@ -1,6 +1,6 @@
 package com.example.testeffectivemobile.dto;
 
-import com.example.testeffectivemobile.models.Task;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

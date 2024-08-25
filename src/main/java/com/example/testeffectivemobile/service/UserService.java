@@ -7,7 +7,6 @@ import com.example.testeffectivemobile.exceptions.UserNotUpdateException;
 import com.example.testeffectivemobile.models.User;
 import com.example.testeffectivemobile.repositories.UserRepository;
 import com.example.testeffectivemobile.security.PersonDetails;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;

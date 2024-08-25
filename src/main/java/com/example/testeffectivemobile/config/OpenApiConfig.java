@@ -14,7 +14,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @Configuration
 @OpenAPIDefinition
-@EnableJpaRepositories
 public class OpenApiConfig {
 
     @Bean
