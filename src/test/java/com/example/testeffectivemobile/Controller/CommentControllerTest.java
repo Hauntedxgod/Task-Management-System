@@ -60,9 +60,9 @@ public class CommentControllerTest {
                         .param("taskId", String.valueOf(taskId))
                         .param("authorId", String.valueOf(authorId))
                         .param("content", content)
-                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)) // Устанавливаем тип контента
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.content").value(content)); // Проверка содержимого ответа
+                .andExpect(jsonPath("$.content").value(content));
 
         verify(commentService, times(1)).createComment(taskId, authorId, content);
     }
